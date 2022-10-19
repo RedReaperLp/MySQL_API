@@ -45,3 +45,9 @@ tasks {
     }
 }
 
+publishData {
+    repository(url: "https://eldonexus.de/repository/maven-public/") {
+        authentication(userName: System.getenv("NEXUS_USERNAME"), password: System.getenv("NEXUS_PASSWORD"))
+    }
+}
+
