@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+group 'com.github.redreaperlp'
+version ''
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'mysql:mysql-connector-java:8.0.30'
+    implementation 'org.jetbrains:annotations:23.0.0'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.github.redreaperlp.MySQL_API'
+    }
+}
+
+shadowJar {
+    archiveClassifier.set('')
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks {
+    compileJava {
+        options.encoding("UTF-8")
+    }
+    javadoc {
+        options.encoding("UTF-8")
+    }
+}
