@@ -45,21 +45,37 @@ tasks {
     }
 }
 
-publishMavenJavaPublicationToEldonexusRepository {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
-    }
-    repositories {
-        maven {
-            name = "eldonexus"
-            url = uri("https://eldonexus.de/repository/maven-public/")
-            credentials {
-                username = System.getenv("ELDONEXUS_USERNAME")
-                password = System.getenv("ELDONEXUS_PASSWORD")
-            }
-        }
+java{
+    withJavadocJar()
+    withSourcesJar()
+
+    toolchain{
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 
+publishData {
+    useEldoNexusRepos(true)
+
+    publishComponent("java")
+}
+
+publishing {
+    publications.create<MavenPublication>("maven") {
+        publishData.configurePublication(this)
+    }
+
+    repositories {
+        maven {
+            authentication {
+                credentials(PasswordCredentials::class) {
+                    username = System.getenv("NEXUS_USERNAME")
+                    password = System.getenv("NEXUS_PASSWORD")
+                }
+            }
+
+            name = "EldoNexus"
+            setUrl(publishData.getRepository())
+        }
+    }
+}
