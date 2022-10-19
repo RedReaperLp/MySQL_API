@@ -21,8 +21,6 @@ jobs:
                distribution: temurin
                java-version: 17
 
-            - name: Make gradlew executable
-                run: chmod +x ./gradlew
            - name: Build with Gradle
              run: ./gradlew --build-cache build
            - name: Test with Gradle
