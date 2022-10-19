@@ -45,7 +45,7 @@ tasks {
     }
 }
 
-publishing {
+publishMavenJavaPublicationToEldonexusRepository {
     publications {
         mavenJava(MavenPublication) {
             from components.java
