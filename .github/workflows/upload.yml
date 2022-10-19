@@ -22,7 +22,7 @@ jobs:
           distribution: temurin
           java-version: 17
       - name: Build with Gradle
-        run: ./gradlew --build-cache shadowJar
+        run: ./gradlew --build-cache build
       - name: Test with Gradle
         run: ./gradlew test
       - name: Publish to eldonexus
