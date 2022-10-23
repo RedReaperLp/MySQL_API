@@ -1,6 +1,6 @@
-plugins{
+plugins {
     java
-    id("de.chojo.publishdata") version "1.0.8"
+    id("de.chojo.publishdata") version "1.0.5"
     `maven-publish`
     id("com.github.johnrengelman.shadow") version "6.1.0"
 }
@@ -20,27 +20,35 @@ dependencies {
     implementation("mysql:mysql-connector-java:8.0.31")
 }
 
-shadow{
-}
+group = "com.github.redreaperlp"
+version = "2.0.3"
+description = "MySQL_API"
+java.sourceCompatibility = JavaVersion.VERSION_17
+
 tasks.withType<JavaCompile>() {
     options.encoding = "UTF-8"
 }
 
+// configure publish data
 publishData {
-    // only if you want to publish to the eldonexus. If you call this you will not need to manually add repositories
+    // We use the eldo nexus default repositories with "main" as our stable branch
     useEldoNexusRepos()
-    publishTask("jar")
-    publishTask("sourcesJar")
-    publishTask("javadocJar")
+    publishData.getVersion(true)
+    // This would use "master" as our stable branch
+    // useEldoNexusRepos()
+
+    // We publish everything of the java component, which includes our compiled jar, sources and javadocs
+    publishComponent("java")
 }
 
 publishing {
     publications.create<MavenPublication>("maven") {
-        // configure the publication as defined previously.
+        // Configure our maven publication
         publishData.configurePublication(this)
     }
 
     repositories {
+        // We add EldoNexus as our repository. The used url is defined by the publish data.
         maven {
             authentication {
                 credentials(PasswordCredentials::class) {
@@ -50,9 +58,8 @@ publishing {
                 }
             }
 
-            name = "MySQL_API"
-            // Get the detected repository from the publish data
-            url = uri(publishData.getRepository())
+            name = "EldoNexus"
+            setUrl(publishData.getRepository())
         }
     }
 }
@@ -66,4 +73,3 @@ tasks{
         options.encoding = "UTF-8"
     }
 }
-
