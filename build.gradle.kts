@@ -1,6 +1,6 @@
 plugins{
     java
-    id("de.chojo.publishdata") version "1.0.5"
+    id("de.chojo.publishdata") version "1.0.8"
     `maven-publish`
     id("com.github.johnrengelman.shadow") version "6.1.0"
 }
@@ -26,26 +26,26 @@ tasks.withType<JavaCompile>() {
     options.encoding = "UTF-8"
 }
 
-// configure publish data
 publishData {
-    // We use the eldo nexus default repositories with "main" as our stable branch
+    // only if you want to publish to the eldonexus. If you call this you will not need to manually add repositories
     useEldoNexusRepos()
-    publishData.getVersion(true)
-    // This would use "master" as our stable branch
-    // useEldoNexusRepos()
-
-    // We publish everything of the java component, which includes our compiled jar, sources and javadocs
-    publishComponent("java")
+    // manually register a release repo
+    addRepo(repo(Regex("master"), "", "https://my-repo.com/releases", false))
+    // manually register a snapshot repo which will append -SNAPSHOT+<commit_hash>
+    addRepo(Repo(Regex(".*"), "-SNAPSHOT", "https://my-repo.com/snapshots", true))
+    // Add tasks which should be published
+    publishTask("jar")
+    publishTask("sourcesJar")
+    publishTask("javadocJar")
 }
 
 publishing {
     publications.create<MavenPublication>("maven") {
-        // Configure our maven publication
+        // configure the publication as defined previously.
         publishData.configurePublication(this)
     }
 
     repositories {
-        // We add EldoNexus as our repository. The used url is defined by the publish data.
         maven {
             authentication {
                 credentials(PasswordCredentials::class) {
@@ -55,8 +55,9 @@ publishing {
                 }
             }
 
-            name = "EldoNexus"
-            setUrl(publishData.getRepository())
+            name = "MySQL_API"
+            // Get the detected repository from the publish data
+            url = uri(publishData.getRepository())
         }
     }
 }
