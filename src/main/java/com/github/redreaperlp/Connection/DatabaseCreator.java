@@ -18,6 +18,7 @@ public class DatabaseCreator {
      * <br>
      *
      * @param settings
+     * @param databaseName
      * @return an SQL_ErrorType if an error occurred, otherwise null
      * @return an SQL_ErrorType if an error occurred, otherwise null
      * @events: OpenConnection - Monitoring Only <br>

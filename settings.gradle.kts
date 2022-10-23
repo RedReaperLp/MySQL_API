@@ -7,4 +7,4 @@ pluginManagement {
         }
     }
 }
-rootProject.name = 'MySQL_API'
+rootProject.name = "MySQL_API"
