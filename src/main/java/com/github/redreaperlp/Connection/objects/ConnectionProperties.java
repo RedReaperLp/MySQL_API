@@ -1,7 +1,6 @@
 package com.github.redreaperlp.Connection.objects;
 
 import com.github.redreaperlp.Connection.SQL_ErrorType;
-import org.jetbrains.annotations.Nullable;
 
 public class ConnectionProperties {
     private SQL_ErrorType errorType;
@@ -15,7 +14,7 @@ public class ConnectionProperties {
      *      - true = table exists <br>
      *      - false = table doesn't exists
      */
-    public ConnectionProperties(@Nullable SQL_ErrorType errorType, boolean tableExists) {
+    public ConnectionProperties(SQL_ErrorType errorType, boolean tableExists) {
         this.errorType = errorType;
         this.tableExists = tableExists;
     }

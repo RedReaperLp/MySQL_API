@@ -2,8 +2,6 @@ package com.github.redreaperlp.Connection;
 
 import com.github.redreaperlp.Connection.ConnectionPool.ConnectionPool;
 import com.github.redreaperlp.Connection.objects.ConnectionProperties;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -17,7 +15,7 @@ public class SQLTables {
      * @param tableName the name of the table you want to check.
      * @return a ConnectionProperties object containing the error type if exists and if the table exists.
      */
-    public static @Nullable ConnectionProperties existsTable(String tableName) {
+    public static  ConnectionProperties existsTable(String tableName) {
         if (TestConnections.isConnected()) {
             Connection con = ConnectionPool.getConnection();
             try {
@@ -41,7 +39,7 @@ public class SQLTables {
      * @return ConnectionProperties containing Error type and if table exists.
      * @see ConnectionProperties
      */
-    public static @NotNull ConnectionProperties existsTable(String tableName, String statementForIfTableDoesntExists) {
+    public static  ConnectionProperties existsTable(String tableName, String statementForIfTableDoesntExists) {
         String statement = statementForIfTableDoesntExists;
         if (TestConnections.isConnected()) {
             Connection con = ConnectionPool.getConnection();
