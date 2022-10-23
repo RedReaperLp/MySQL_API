@@ -1,6 +1,6 @@
 plugins {
     java
-    id("de.chojo.publishdata") version "1.0.5"
+    id("de.chojo.publishdata") version "1.0.8"
     `maven-publish`
     id("com.github.johnrengelman.shadow") version "6.1.0"
 }
@@ -21,7 +21,7 @@ dependencies {
 }
 
 group = "com.github.redreaperlp"
-version = "2.0.3"
+version = "1.0.0"
 description = "MySQL_API"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
