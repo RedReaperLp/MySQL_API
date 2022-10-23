@@ -37,7 +37,7 @@ publishData {
 publishing {
     publications.create<MavenPublication>("maven") {
         // configure the publication as defined previously.
-        publishData.configurePublication(this)
+        publishData.configurePublication(publication = this)
     }
 
     repositories {
