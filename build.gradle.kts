@@ -29,11 +29,6 @@ tasks.withType<JavaCompile>() {
 publishData {
     // only if you want to publish to the eldonexus. If you call this you will not need to manually add repositories
     useEldoNexusRepos()
-    // manually register a release repo
-    addRepo(repo(Regex("master"), "", "https://my-repo.com/releases", false))
-    // manually register a snapshot repo which will append -SNAPSHOT+<commit_hash>
-    addRepo(Repo(Regex(".*"), "-SNAPSHOT", "https://my-repo.com/snapshots", true))
-    // Add tasks which should be published
     publishTask("jar")
     publishTask("sourcesJar")
     publishTask("javadocJar")
