@@ -1,3 +1,5 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 plugins {
     java
     id("de.chojo.publishdata") version "1.0.5"
@@ -16,12 +18,14 @@ repositories {
     }
 }
 
+
+
 dependencies {
     implementation("mysql:mysql-connector-java:8.0.31")
 }
 
 group = "com.github.redreaperlp"
-version = "1.0.0"
+version = ""
 description = "MySQL_API"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
@@ -64,12 +68,21 @@ publishing {
     }
 }
 
-tasks{
+tasks {
     compileJava {
         options.encoding = "UTF-8"
     }
 
     javadoc {
         options.encoding = "UTF-8"
+    }
+
+    named<ShadowJar>("shadowJar") {
+        archiveClassifier.set("")
+        manifest {
+            attributes(
+                "Main-Class" to "com.github.redreaperlp.MySQL_API"
+            )
+        }
     }
 }
